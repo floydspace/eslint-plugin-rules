@@ -1,0 +1,46 @@
+{
+  "name": "@floydspace/eslint-plugin-rules",
+  "version": "0.0.1",
+  "description": "ESLint rules plugin",
+  "keywords": [
+    "eslint",
+    "eslintplugin",
+    "eslint-plugin",
+    "typescript",
+    "optional-chain",
+    "optional-chaining",
+    "use-optional-chain",
+    "use-optional-chaining",
+    "prefer-optional-chain",
+    "prefer-optional-chaining"
+  ],
+  "main": "dist/index.js",
+  "scripts": {
+    "build": "tsc",
+    "prepublishOnly": "npm run build"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/floydspace/eslint-plugin-rules.git"
+  },
+  "author": "Victor Korzunin",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/floydspace/eslint-plugin-rules/issues"
+  },
+  "homepage": "https://github.com/floydspace/eslint-plugin-rules#readme",
+  "dependencies": {
+    "@typescript-eslint/experimental-utils": "^2.7.0"
+  },
+  "devDependencies": {
+    "@typescript-eslint/parser": "^2.7.0",
+    "eslint": "^6.6.0",
+    "tsutils": "^3.17.1",
+    "typescript": "^3.7.2"
+  },
+  "peerDependencies": {
+    "@typescript-eslint/parser": "^2.0.0",
+    "eslint": "^5.0.0 || ^6.0.0",
+    "typescript": ">=3.7.0"
+  }
+}
