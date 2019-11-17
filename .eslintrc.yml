@@ -4,4 +4,8 @@ extends:
   - plugin:@typescript-eslint/recommended
 rules:
   semi: 'off'
+  quotes: 'off'
   '@typescript-eslint/semi': error
+  '@typescript-eslint/quotes':
+    - error
+    - single

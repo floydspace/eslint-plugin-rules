@@ -1,6 +1,6 @@
 import { ESLintUtils, TSESLint, TSESTree, AST_NODE_TYPES } from '@typescript-eslint/experimental-utils';
 
-const createRule = ESLintUtils.RuleCreator(name => `https://github.com/floydspace/eslint-plugin-rules/blob/master/README.md`);
+const createRule = ESLintUtils.RuleCreator(name => 'https://github.com/floydspace/eslint-plugin-rules/blob/master/README.md');
 
 export default createRule({
   name: 'prefer-optional-chaining',
@@ -33,7 +33,7 @@ export default createRule({
                   const rightObjectObject = rightObject.object as TSESTree.Identifier;
                   const rightObjectProperty = rightObject.property as TSESTree.Identifier;
                   if (leftObject.name === rightObjectObject.name && leftProperty.name === rightObjectProperty.name) {
-                    context.report({ messageId: "preferOptionalChaining", node });
+                    context.report({ messageId: 'preferOptionalChaining', node });
                   }
                 }
               }
@@ -47,7 +47,7 @@ export default createRule({
             if (right.object.type === AST_NODE_TYPES.Identifier) {
               const rightObject = right.object as TSESTree.Identifier;
               if (left.name === rightObject.name) {
-                context.report({ messageId: "preferOptionalChaining", node });
+                context.report({ messageId: 'preferOptionalChaining', node });
               }
             }
           }
