@@ -1,4 +1,4 @@
-import preferOptionalChaining from './preferOptionalChainingRule';
+import preferOptionalChaining from './prefer-optional-chaining';
 
 export = {
   rules: {

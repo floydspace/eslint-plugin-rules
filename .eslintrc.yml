@@ -1,3 +1,5 @@
+env:
+  node: true
 extends:
   - eslint:recommended
   - plugin:@typescript-eslint/eslint-recommended
@@ -5,7 +7,12 @@ extends:
 rules:
   semi: 'off'
   quotes: 'off'
+  no-use-before-define: 'off'
   '@typescript-eslint/semi': error
   '@typescript-eslint/quotes':
     - error
     - single
+  '@typescript-eslint/no-use-before-define':
+    - error
+    - functions: false
+      classes: false

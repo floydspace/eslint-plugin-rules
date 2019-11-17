@@ -1,4 +1,4 @@
-import { ESLintUtils, TSESLint, TSESTree, AST_NODE_TYPES } from '@typescript-eslint/experimental-utils';
+import { AST_NODE_TYPES, ESLintUtils, TSESLint, TSESTree } from '@typescript-eslint/experimental-utils';
 
 const createRule = ESLintUtils.RuleCreator(name => 'https://github.com/floydspace/eslint-plugin-rules/blob/master/README.md');
 
