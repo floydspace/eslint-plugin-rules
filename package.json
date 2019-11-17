@@ -19,6 +19,7 @@
     "build": "tsc",
     "lint": "eslint . --ext .ts --ignore-path .gitignore",
     "test": "jest",
+    "coverage": "jest --coverage && cat ./coverage/lcov.info | coveralls",
     "prepublishOnly": "npm run build"
   },
   "repository": {
@@ -39,6 +40,7 @@
     "@types/node": "^12.12.8",
     "@typescript-eslint/eslint-plugin": "^2.7.0",
     "@typescript-eslint/parser": "^2.7.0",
+    "coveralls": "^3.0.7",
     "eslint": "^6.6.0",
     "jest": "^24.9.0",
     "ts-jest": "^24.1.0",
