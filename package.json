@@ -1,6 +1,6 @@
 {
   "name": "@floydspace/eslint-plugin-rules",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "ESLint rules plugin",
   "keywords": [
     "eslint",
