@@ -18,39 +18,29 @@ export default createRule({
   },
   defaultOptions: [],
   create(context): TSESLint.RuleListener {
+    function expressionsEqual(left: TSESTree.Expression, right: TSESTree.Expression): boolean {
+      if (left.type === AST_NODE_TYPES.Literal && right.type === AST_NODE_TYPES.Literal) {
+        return left.value === right.value;
+      }
+      if (left.type === AST_NODE_TYPES.Identifier && right.type === AST_NODE_TYPES.Identifier) {
+        return left.name === right.name;
+      }
+      if (left.type === AST_NODE_TYPES.MemberExpression && right.type === AST_NODE_TYPES.MemberExpression) {
+        return expressionsEqual(left.object, right.object) && expressionsEqual(left.property, right.property);
+      }
+    }
+
     return {
-      'LogicalExpression[operator=&&]'(node: TSESTree.LogicalExpression): void {
-        if (node.left.type === AST_NODE_TYPES.MemberExpression) {
-          const left = node.left as TSESTree.MemberExpression;
-          if (left.object.type === AST_NODE_TYPES.Identifier && left.property.type === AST_NODE_TYPES.Identifier) {
-            const leftObject = left.object as TSESTree.Identifier;
-            const leftProperty = left.property as TSESTree.Identifier;
-            if (node.right.type === AST_NODE_TYPES.MemberExpression) {
-              const right = node.right as TSESTree.MemberExpression;
-              if (right.object.type === AST_NODE_TYPES.MemberExpression) {
-                const rightObject = right.object as TSESTree.MemberExpression;
-                if (rightObject.object.type === AST_NODE_TYPES.Identifier && rightObject.property.type === AST_NODE_TYPES.Identifier) {
-                  const rightObjectObject = rightObject.object as TSESTree.Identifier;
-                  const rightObjectProperty = rightObject.property as TSESTree.Identifier;
-                  if (leftObject.name === rightObjectObject.name && leftProperty.name === rightObjectProperty.name) {
-                    context.report({ messageId: 'preferOptionalChaining', node });
-                  }
-                }
-              }
-            }
-          }
+      'LogicalExpression[operator=&&] > MemberExpression'(node: TSESTree.MemberExpression): void {
+        const parent = node.parent as TSESTree.LogicalExpression;
+        if (expressionsEqual(parent.left, node.object)) {
+          context.report({ messageId: 'preferOptionalChaining', node });
         }
-        if (node.left.type === AST_NODE_TYPES.Identifier) {
-          const left = node.left as TSESTree.Identifier;
-          if (node.right.type === AST_NODE_TYPES.MemberExpression) {
-            const right = node.right as TSESTree.MemberExpression;
-            if (right.object.type === AST_NODE_TYPES.Identifier) {
-              const rightObject = right.object as TSESTree.Identifier;
-              if (left.name === rightObject.name) {
-                context.report({ messageId: 'preferOptionalChaining', node });
-              }
-            }
-          }
+      },
+      'LogicalExpression[operator=&&] > CallExpression'(node: TSESTree.CallExpression): void {
+        const parent = node.parent as TSESTree.LogicalExpression;
+        if (node.callee.type === AST_NODE_TYPES.MemberExpression && expressionsEqual(parent.left, node.callee.object)) {
+          context.report({ messageId: 'preferOptionalChaining', node });
         }
       }
     };
