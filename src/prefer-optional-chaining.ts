@@ -34,13 +34,13 @@ export default createRule({
       'LogicalExpression[operator=&&] > MemberExpression'(node: TSESTree.MemberExpression): void {
         const parent = node.parent as TSESTree.LogicalExpression;
         if (expressionsEqual(parent.left, node.object)) {
-          context.report({ messageId: 'preferOptionalChaining', node });
+          context.report({ messageId: 'preferOptionalChaining', node: parent });
         }
       },
       'LogicalExpression[operator=&&] > CallExpression'(node: TSESTree.CallExpression): void {
         const parent = node.parent as TSESTree.LogicalExpression;
         if (node.callee.type === AST_NODE_TYPES.MemberExpression && expressionsEqual(parent.left, node.callee.object)) {
-          context.report({ messageId: 'preferOptionalChaining', node });
+          context.report({ messageId: 'preferOptionalChaining', node: parent });
         }
       }
     };
