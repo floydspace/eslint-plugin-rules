@@ -60,5 +60,21 @@ ruleTester.run('prefer-optional-chaining', rule, {
       code: 'foo[0] && foo[0].bar()',
       errors: [{messageId: 'preferOptionalChaining'}],
     },
+    {
+      code: 'foo?.bar && foo.bar.test',
+      errors: [{messageId: 'preferOptionalChaining'}],
+    },
+    {
+      code: 'foo?.bar && foo?.bar.test',
+      errors: [{messageId: 'preferOptionalChaining'}],
+    },
+    {
+      code: 'foo && foo()',
+      errors: [{messageId: 'preferOptionalChaining'}],
+    },
+    {
+      code: 'foo && foo?.()',
+      errors: [{messageId: 'preferOptionalChaining'}],
+    },
   ],
 });
