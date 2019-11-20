@@ -1,6 +1,6 @@
 {
   "name": "@floydspace/eslint-plugin-rules",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "ESLint rules plugin",
   "keywords": [
     "eslint",
@@ -16,7 +16,7 @@
   ],
   "main": "dist/index.js",
   "scripts": {
-    "build": "tsc",
+    "build": "rm -rf ./dist && tsc",
     "lint": "eslint . --ext .ts --ignore-path .gitignore",
     "test": "jest",
     "coverage": "jest --coverage && cat ./coverage/lcov.info | coveralls",
