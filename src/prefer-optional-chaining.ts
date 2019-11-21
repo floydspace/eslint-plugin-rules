@@ -15,6 +15,7 @@ export default createRule({
       preferOptionalChaining: 'Prefer optional chaining operator.',
     },
     schema: [],
+    fixable: 'code',
   },
   defaultOptions: [],
   create(context): TSESLint.RuleListener {
@@ -34,21 +35,39 @@ export default createRule({
       }
     }
 
+    function reportWithFixer(node: TSESTree.LogicalExpression, fixedTextFn: (sourceCode: TSESLint.SourceCode) => string): void {
+      context.report({
+        node, messageId: 'preferOptionalChaining',
+        fix: (fixer) => fixer.replaceText(node, fixedTextFn(context.getSourceCode())),
+      });
+    }
+
     return {
       'LogicalExpression[operator=&&] > MemberExpression,OptionalMemberExpression'(node: TSESTree.MemberExpression | TSESTree.OptionalMemberExpression): void {
         const parent = node.parent as TSESTree.LogicalExpression;
         if (expressionsEqual(parent.left, node.object)) {
-          context.report({ messageId: 'preferOptionalChaining', node: parent });
+          reportWithFixer(parent, (sourceCode) => {
+            let propertyText = sourceCode.getText(node.property);
+            if (node.computed) propertyText = `[${propertyText}]`;
+            return `${sourceCode.getText(parent.left)}?.${propertyText}`;
+          });
         }
       },
       'LogicalExpression[operator=&&] > CallExpression,OptionalCallExpression'(node: TSESTree.CallExpression | TSESTree.OptionalCallExpression): void {
         const parent = node.parent as TSESTree.LogicalExpression;
         if ((node.callee.type === AST_NODE_TYPES.MemberExpression || node.callee.type === AST_NODE_TYPES.OptionalMemberExpression)
         && expressionsEqual(parent.left, node.callee.object)) {
-          context.report({ messageId: 'preferOptionalChaining', node: parent });
+          reportWithFixer(parent, (sourceCode) => {
+            const collee = node.callee as TSESTree.MemberExpression | TSESTree.OptionalMemberExpression;
+            const args = node.arguments.map(arg => sourceCode.getText(arg));
+            return `${sourceCode.getText(parent.left)}?.${sourceCode.getText(collee.property)}(${args.join(', ')})`;
+          });
         }
         if (node.callee.type === AST_NODE_TYPES.Identifier && expressionsEqual(parent.left, node.callee)) {
-          context.report({ messageId: 'preferOptionalChaining', node: parent });
+          reportWithFixer(parent, (sourceCode) => {
+            const args = node.arguments.map(arg => sourceCode.getText(arg));
+            return `${sourceCode.getText(parent.left)}?.(${args.join(', ')})`;
+          });
         }
       },
     };
