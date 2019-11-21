@@ -1,6 +1,6 @@
 {
   "name": "@floydspace/eslint-plugin-rules",
-  "version": "0.1.2",
+  "version": "0.2.0",
   "description": "ESLint rules plugin",
   "keywords": [
     "eslint",
@@ -33,14 +33,14 @@
   },
   "homepage": "https://github.com/floydspace/eslint-plugin-rules#readme",
   "dependencies": {
-    "@typescript-eslint/experimental-utils": "^2.7.0"
+    "@typescript-eslint/experimental-utils": "^2.8.0"
   },
   "devDependencies": {
     "@types/jest": "^24.0.23",
-    "@types/node": "^12.12.8",
-    "@typescript-eslint/eslint-plugin": "^2.7.0",
-    "@typescript-eslint/parser": "^2.7.0",
-    "coveralls": "^3.0.7",
+    "@types/node": "^12.12.11",
+    "@typescript-eslint/eslint-plugin": "^2.8.0",
+    "@typescript-eslint/parser": "^2.8.0",
+    "coveralls": "^3.0.8",
     "eslint": "^6.6.0",
     "jest": "^24.9.0",
     "ts-jest": "^24.1.0",
