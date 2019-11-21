@@ -49,4 +49,4 @@ You can also enable all the rules for our plugin. Add `plugin:@floydspace/rules/
 
 | Name                                         | Description                                                       |
 | -------------------------------------------- | ----------------------------------------------------------------- |
-| `@floydspace/rules/prefer-optional-chaining` | Prefer use [optional chaining](https://www.typescriptlang.org/docs/handbook/release-notes/typescript-3-7.html#optional-chaining) operator
+| [`@floydspace/rules/prefer-optional-chaining`](https://github.com/floydspace/eslint-plugin-rules/blob/master/docs/prefer-optional-chaining.md) | Prefer use [optional chaining](https://www.typescriptlang.org/docs/handbook/release-notes/typescript-3-7.html#optional-chaining) operator

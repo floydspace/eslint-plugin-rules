@@ -1,6 +1,6 @@
 import { AST_NODE_TYPES, ESLintUtils, TSESLint, TSESTree } from '@typescript-eslint/experimental-utils';
 
-const createRule = ESLintUtils.RuleCreator(name => 'https://github.com/floydspace/eslint-plugin-rules/blob/master/README.md');
+const createRule = ESLintUtils.RuleCreator(name => `https://github.com/floydspace/eslint-plugin-rules/blob/master/docs/${name}.md`);
 
 export default createRule({
   name: 'prefer-optional-chaining',
