@@ -1,6 +1,6 @@
 {
   "name": "@floydspace/eslint-plugin-rules",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "description": "ESLint rules plugin",
   "keywords": [
     "eslint",
@@ -9,14 +9,10 @@
     "eslint plugin",
     "eslint-plugin",
     "typescript",
-    "optional-chain",
-    "optional chain",
-    "optional-chaining",
-    "optional chaining",
-    "use-optional-chain",
-    "use-optional-chaining",
-    "prefer-optional-chain",
-    "prefer-optional-chaining"
+    "shorthand-grouping",
+    "shorthand grouping",
+    "object-shorthand-grouping",
+    "object shorthand grouping"
   ],
   "main": "dist/index.js",
   "scripts": {
@@ -52,8 +48,8 @@
     "typescript": "^3.7.2"
   },
   "peerDependencies": {
-    "@typescript-eslint/parser": "^2.0.0",
-    "eslint": "^5.0.0 || ^6.0.0",
+    "@typescript-eslint/parser": "^2.0.0 || ^3.0.0 || ^4.0.0 || ^5.0.0",
+    "eslint": "^5.0.0 || ^6.0.0 || ^7.0.0 || ^8.0.0",
     "typescript": ">=3.7.0"
   }
 }

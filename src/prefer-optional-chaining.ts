@@ -1,6 +1,6 @@
 import { AST_NODE_TYPES, ESLintUtils, TSESLint, TSESTree } from '@typescript-eslint/experimental-utils';
 
-const createRule = ESLintUtils.RuleCreator(name => `https://github.com/floydspace/eslint-plugin-rules/blob/master/docs/${name}.md`);
+const createRule = ESLintUtils.RuleCreator((name) => `https://github.com/floydspace/eslint-plugin-rules/blob/master/docs/${name}.md`);
 
 export default createRule({
   name: 'prefer-optional-chaining',
@@ -16,6 +16,7 @@ export default createRule({
     },
     schema: [],
     fixable: 'code',
+    deprecated: true,
   },
   defaultOptions: [],
   create(context): TSESLint.RuleListener {
@@ -29,15 +30,18 @@ export default createRule({
       if (left.type === AST_NODE_TYPES.Identifier && right.type === AST_NODE_TYPES.Identifier) {
         return left.name === right.name;
       }
-      if ((left.type === AST_NODE_TYPES.MemberExpression || left.type === AST_NODE_TYPES.OptionalMemberExpression)
-      && (right.type === AST_NODE_TYPES.MemberExpression || right.type === AST_NODE_TYPES.OptionalMemberExpression)) {
+      if (
+        (left.type === AST_NODE_TYPES.MemberExpression || left.type === AST_NODE_TYPES.OptionalMemberExpression) &&
+        (right.type === AST_NODE_TYPES.MemberExpression || right.type === AST_NODE_TYPES.OptionalMemberExpression)
+      ) {
         return expressionsEqual(left.object, right.object) && expressionsEqual(left.property, right.property);
       }
     }
 
     function reportWithFixer(node: TSESTree.LogicalExpression, fixedTextFn: (sourceCode: TSESLint.SourceCode) => string): void {
       context.report({
-        node, messageId: 'preferOptionalChaining',
+        node,
+        messageId: 'preferOptionalChaining',
         fix: (fixer) => fixer.replaceText(node, fixedTextFn(context.getSourceCode())),
       });
     }
@@ -55,17 +59,19 @@ export default createRule({
       },
       'LogicalExpression[operator=&&] > CallExpression,OptionalCallExpression'(node: TSESTree.CallExpression | TSESTree.OptionalCallExpression): void {
         const parent = node.parent as TSESTree.LogicalExpression;
-        if ((node.callee.type === AST_NODE_TYPES.MemberExpression || node.callee.type === AST_NODE_TYPES.OptionalMemberExpression)
-        && expressionsEqual(parent.left, node.callee.object)) {
+        if (
+          (node.callee.type === AST_NODE_TYPES.MemberExpression || node.callee.type === AST_NODE_TYPES.OptionalMemberExpression) &&
+          expressionsEqual(parent.left, node.callee.object)
+        ) {
           reportWithFixer(parent, (sourceCode) => {
             const collee = node.callee as TSESTree.MemberExpression | TSESTree.OptionalMemberExpression;
-            const args = node.arguments.map(arg => sourceCode.getText(arg));
+            const args = node.arguments.map((arg) => sourceCode.getText(arg));
             return `${sourceCode.getText(parent.left)}?.${sourceCode.getText(collee.property)}(${args.join(', ')})`;
           });
         }
         if (node.callee.type === AST_NODE_TYPES.Identifier && expressionsEqual(parent.left, node.callee)) {
           reportWithFixer(parent, (sourceCode) => {
-            const args = node.arguments.map(arg => sourceCode.getText(arg));
+            const args = node.arguments.map((arg) => sourceCode.getText(arg));
             return `${sourceCode.getText(parent.left)}?.(${args.join(', ')})`;
           });
         }

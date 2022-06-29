@@ -31,7 +31,7 @@ Then configure the rules you want to use under the rules section.
   "parser": "@typescript-eslint/parser",
   "plugins": ["@floydspace/rules"],
   "rules": {
-    "@floydspace/rules/prefer-optional-chaining": "error"
+    "@floydspace/rules/object-shorthand-grouping": "error"
   }
 }
 ```
@@ -48,6 +48,6 @@ You can also enable all the rules for our plugin. Add `plugin:@floydspace/rules/
 
 ## Rules
 
-| Name                                         | Description                                                       |
-| -------------------------------------------- | ----------------------------------------------------------------- |
-| [`@floydspace/rules/prefer-optional-chaining`](https://github.com/floydspace/eslint-plugin-rules/blob/master/docs/prefer-optional-chaining.md) | Prefer use [optional chaining](https://www.typescriptlang.org/docs/handbook/release-notes/typescript-3-7.html#optional-chaining) operator
+| Name                                                                               | Description                                                                 |
+| ---------------------------------------------------------------------------------- | --------------------------------------------------------------------------- |
+| [`@floydspace/rules/object-shorthand-grouping`](docs/object-shorthand-grouping.md) | Group your shorthand properties at the beginning of your object declaration |
