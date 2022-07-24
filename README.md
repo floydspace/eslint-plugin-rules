@@ -1,3 +1,9 @@
+![Maintenance Status](https://img.shields.io/badge/status-deprecated-critical)
+
+:exclamation: Merget to [@floydspace/linters](https://github.com/floydspace/linters) monorepo as `eslint-plugin` package
+
+------
+
 [![Build Status](https://travis-ci.org/floydspace/eslint-plugin-rules.svg?branch=master)](https://travis-ci.org/floydspace/eslint-plugin-rules)
 [![Coverage Status](https://coveralls.io/repos/github/floydspace/eslint-plugin-rules/badge.svg?branch=master)](https://coveralls.io/github/floydspace/eslint-plugin-rules?branch=master)
 [![npm version](https://badge.fury.io/js/%40floydspace%2Feslint-plugin-rules.svg)](https://badge.fury.io/js/%40floydspace%2Feslint-plugin-rules)
